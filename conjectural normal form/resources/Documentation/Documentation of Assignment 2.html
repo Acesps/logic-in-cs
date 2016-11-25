@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Documentation</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../Resources/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="font-size:20px;">Documentation</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+    
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      
+      <div class="jumbotron">
+        This algorithm, called CNF, should satisfy the following requirements:<br>
+(1) CNF terminates for all formulas of propositional logic as input;<br>
+(2) for each such input, CNF outputs an equivalent formula; and<br>
+(3) all output computed by CNF is in CNF.<br> <br>
+			The application of IMPL FREE might introduce double negations into the
+output formula. More importantly, negations whose scopes are non-atomic
+formulas might still be present. For example, the formula p ∧¬(p ∧ q) has
+such a negation with p ∧ q as its scope. Essentially, the question is whether
+one can efficiently compute a CNF for ¬φ from a CNF for φ. Since nobody
+seems to know the answer, we circumvent the question by translating ¬φinto an equivalent formula that contains only negations of atoms. Formulas
+which only negate atoms are said to be in negation normal form (NNF). We
+spell out such a procedure, NNF, in detail later on. The key to its specification
+for implication-free formulas lies in the de Morgan rules. The second phase
+of the preprocessing, therefore, calls NNF with the implication-free output of
+IMPL FREE to obtain an equivalent formula in NNF.
+After all this preprocessing, we obtain a formula φ	 which is the result of
+the call NNF (IMPL FREE (φ)). Note that φ	 ≡ φ since both algorithms only
+transform formulas into equivalent ones. Since φ	 contains no occurrences
+of → and since only atoms in φ	 are negated, we may program CNF by an
+analysis of only three cases: literals, conjunctions and disjunctions.<br>
+ If φ is a literal, it is by definition in CNF and so CNF outputs φ.<br>
+ If φ equals φ1 ∧ φ2, we call CNF recursively on each φi to get the respective output
+ηi and return the CNF η1 ∧ η2 as output for input φ.<br>
+ If φ equals φ1 ∨ φ2, we again call CNF recursively on each φi to get the respective
+output ηi; but this time we must not simply return η1 ∨ η2 since that formula is
+certainly not in CNF, unless η1 and η2 happen to be literals.<br>
+<br> <br>
+into an equivalent formula that contains only negations of atoms. Formulas
+which only negate atoms are said to be in negation normal form (NNF). We
+spell out such a procedure, NNF, in detail later on. The key to its specification
+for implication-free formulas lies in the de Morgan rules. The second phase
+of the preprocessing, therefore, calls NNF with the implication-free output of
+IMPL FREE to obtain an equivalent formula in NNF.
+After all this preprocessing, we obtain a formula φ	 which is the result of
+the call NNF (IMPL FREE (φ)). Note that φ	 ≡ φ since both algorithms only
+transform formulas into equivalent ones. Since φ	 contains no occurrences
+of → and since only atoms in φ	 are negated, we may program CNF by an
+analysis of only three cases: literals, conjunctions and disjunctions.<br>
+ If φ is a literal, it is by definition in CNF and so CNF outputs φ.<br>
+ If φ equals φ1 ∧ φ2, we call CNF recursively on each φi to get the respective output
+ηi and return the CNF η1 ∧ η2 as output for input φ.<br>
+ If φ equals φ1 ∨ φ2, we again call CNF recursively on each φi to get the respective
+output ηi; but this time we must not simply return η1 ∨ η2 since that formula is
+certainly not in CNF, unless η1 and η2 happen to be literals.
+
+<br> <br>
+Notice how the calling of DISTR is done with the computed conjunctive normal
+forms of φ1 and φ2. The routine DISTR has η1 and η2 as input parameters
+and does a case analysis on whether these inputs are conjunctions. What
+should DISTR do if none of its input formulas is such a conjunction? Well,
+since we are calling DISTR for inputs η1 and η2 which are in CNF, this can
+only mean that η1 and η2 are literals, or disjunctions of literals. Thus, η1 ∨ η2
+is in CNF.
+Otherwise, at least one of the formulas η1 and η2 is a conjunction. Since
+one conjunction suffices for simplifying the problem, we have to decide which
+conjunct we want to transform if both formulas are conjunctions. That way
+we maintain that our algorithm CNF is deterministic. So let us suppose that
+η1 is of the form η11 ∧ η12. Then the distributive law says that η1 ∨ η2 ≡
+(η11 ∨ η2) ∧ (η12 ∨ η2). Since all participating formulas η11, η12 and η2 are
+in CNF, we may call DISTR again for the pairs (η11, η2) and (η12, η2), and
+then simply form their conjunction. This is the key insight for writing the
+function DISTR.
+The case when η2 is a conjunction is symmetric and the structure of
+the recursive call of DISTR is then dictated by the equivalence η1 ∨ η2 ≡
+(η1 ∨ η21) ∧ (η1 ∨ η22), where η2 = η21 ∧ η22:<br>
+function DISTR (η1, η2):<br>
+/* precondition: η1 and η2 are in CNF */<br>
+/* postcondition: DISTR (η1, η2) computes a CNF for η1 ∨ η2 */<br>
+begin function<br>
+case<br>
+η1 is η11 ∧ η12 : return DISTR (η11, η2) ∧ DISTR (η12, η2)<br>
+η2 is η21 ∧ η22 : return DISTR (η1, η21) ∧ DISTR (η1, η22)<br>
+otherwise (= no conjunctions) : return η1 ∨ η2<br>
+end case<br>
+end function<br>
+<br><br>
+Again, we program NNF recursively by a case analysis over the structure of
+the input formula φ. The last two examples already suggest a solution for two
+of these clauses. In order to compute a NNF of ¬¬φ, we simply compute
+a NNF of φ. This is a sound strategy since φ and ¬¬φ are semantically
+equivalent. If φ equals ¬(φ1 ∧ φ2), we use the de Morgan rule ¬(φ1 ∧ φ2) ≡
+¬φ1 ∨ ¬φ2 as a recipe for how NNF should call itself recursively in that case.
+Dually, the case of φ being ¬(φ1 ∨ φ2) appeals to the other de Morgan rule
+¬(φ1 ∨ φ2) ≡ ¬φ1 ∧ ¬φ2 and, if φ is a conjunction or disjunction, we simply
+let NNF pass control to those subformulas. Clearly, all literals are in NNF.
+The resulting code for NNF is thus<br>
+function NNF (φ):<br>
+/* precondition: φ is implication free */<br>
+/* postcondition: NNF (φ) computes a NNF for φ */<br>
+begin function<br>
+case<br>
+φ is a literal : return φ<br>
+φ is ¬¬φ1 : return NNF (φ1)<br>
+φ is φ1 ∧ φ2 : return NNF (φ1) ∧ NNF (φ2)<br>
+φ is φ1 ∨ φ2 : return NNF (φ1) ∨ NNF (φ2)<br>
+φ is ¬(φ1 ∧ φ2): return NNF (¬φ1) ∨ NNF (¬φ2)<br>
+φ is ¬(φ1 ∨ φ2): return NNF (¬φ1) ∧ NNF (¬φ2)<br>
+end case<br>
+end function<br><br>
+
+Notice that these cases are exhaustive due to the algorithm’s precondition.<br>
+Given any formula φ of propositional logic, we may now convert it into an equivalent CNF by calling CNF (NNF (IMPL FREE (φ))). In the exercises, you
+are asked to show that<br>
+ all four algorithms terminate on input meeting their preconditions,<br>
+ the result of CNF (NNF (IMPL FREE (φ))) is in CNF and,<br>
+ that result is semantically equivalent to φ.<br><br>
+Let us now illustrate the programs coded above on some concrete examples.
+We begin by computing CNF (NNF (IMPL FREE (¬p ∧ q → p ∧ (r → q)))).
+We show almost all details of this computation and you should compare this
+with how you would expect the code above to behave. First, we compute
+IMPL FREE (φ):
+IMPL FREE (φ) = ¬IMPL FREE (¬p ∧ q) ∨ IMPL FREE (p ∧ (r → q))<br>
+= ¬((IMPL FREE ¬p) ∧ (IMPL FREE q)) ∨ IMPL FREE (p ∧ (r → q))<br>
+= ¬((¬p) ∧ IMPL FREE q) ∨ IMPL FREE (p ∧ (r → q))<br>
+= ¬(¬p ∧ q) ∨ IMPL FREE (p ∧ (r → q))<br>
+= ¬(¬p ∧ q) ∨ ((IMPL FREE p) ∧ IMPL FREE (r → q))<br>
+= ¬(¬p ∧ q) ∨ (p ∧ IMPL FREE (r → q))<br>
+= ¬(¬p ∧ q) ∨ (p ∧ (¬(IMPL FREE r) ∨ (IMPL FREE q)))<br>
+= ¬(¬p ∧ q) ∨ (p ∧ (¬r ∨ (IMPL FREE q)))<br>
+= ¬(¬p ∧ q) ∨ (p ∧ (¬r ∨ q)).<br>
+Second, we compute NNF (IMPL FREE φ):<br>
+NNF (IMPL FREE φ) = NNF (¬(¬p ∧ q)) ∨ NNF (p ∧ (¬r ∨ q))<br>
+= NNF (¬(¬p)∨ ¬q) ∨ NNF (p ∧ (¬r ∨ q))<br>
+= (NNF (¬¬p)) ∨ (NNF (¬q)) ∨ NNF (p ∧ (¬r ∨ q))<br>
+= (p ∨ (NNF (¬q))) ∨ NNF (p ∧ (¬r ∨ q))<br>
+= (p∨ ¬q) ∨ NNF (p ∧ (¬r ∨ q))<br>
+= (p∨ ¬q) ∨ ((NNF p) ∧ (NNF (¬r ∨ q)))<br>
+= (p∨ ¬q) ∨ (p ∧ (NNF (¬r ∨ q)))<br>
+= (p∨ ¬q) ∨ (p ∧ ((NNF (¬r)) ∨ (NNF q)))<br>
+= (p∨ ¬q) ∨ (p ∧ (¬r ∨ (NNF q)))<br>
+= (p∨ ¬q) ∨ (p ∧ (¬r ∨ q)).<br>
+Third, we finish it off with<br>
+CNF (NNF (IMPL FREE φ)) = CNF ((p ∨¬q) ∨ (p ∧ (¬r ∨ q)))<br>
+= DISTR (CNF (p ∨¬q), CNF (p ∧ (¬r ∨ q)))<br>
+= DISTR (p∨ ¬q, CNF (p ∧ (¬r ∨ q)))<br>
+= DISTR (p∨ ¬q, p ∧ (¬r ∨ q))<br>
+= DISTR (p∨ ¬q, p) ∧ DISTR (p∨ ¬q, ¬r ∨ q)<br>
+= (p ∨¬q ∨ p) ∧ DISTR (p ∨¬q, ¬r ∨ q)<br>
+= (p ∨¬q ∨ p) ∧ (p∨ ¬q ∨¬r ∨ q) .<br>
+The formula (p∨ ¬q ∨ p) ∧ (p ∨¬q ∨ ¬r ∨ q) is thus the result of the call
+CNF (NNF (IMPL FREE φ)) and is in conjunctive normal form and equivalent to
+φ.
+
+       
+      </div>
+
+    </div> <!-- /container -->
+
+
+  </body>
+</html>
