@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Documentation</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../Resources/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="font-size:20px;">Documentation</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+    
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Task 1</h1>
+        <p>
+        <h4>Convert the infix propositional logic expression into a prefix propositional logic expression</h4><br>
+
+
+		<b>void infix_to_prefix()</b><br><br>
+
+		This method converts the infix expression to prefix expression. The infix expression is	traversed in backward order and elements are pushed or popped into the stack and added to the prefix expression according to the following pseudo-code:<br><br>
+
+
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 1. Push “)” onto STACK, and add “(“ to end of the A<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 2. Scan A from right to left and repeat step 3 to 6 for each element of A until the STACK is empty<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 3. If an operand is encountered add it to B<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 4. If a right parenthesis is encountered push it onto STACK<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 5. If an operator is encountered then:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Repeatedly pop from STACK and add to B each operator (on the top of STACK) which has same or higher precedence than the operator.<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Add operator to STACK<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 6. If left parenthesis is encontered then<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Repeatedly pop from the STACK and add to B (each operator on top of stack until a left parenthesis is encounterd)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Remove the left parenthesis<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step 7. Exit<br><br>
+
+			<b>int priority(char elem)</b><br><br>
+
+			This function returns the precedence of the operators of natural deduction.<br>
+			The precedence order is  : " '~' > '+' = '*' > '>' "<br>
+			Here<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'~' : negation operator<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              '+' : or operator<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              '*' : and operator<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              '>' : implies operator<br><br>
+
+
+<b>Stack</b><br><br>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void push(char elem)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char pop()<br><br>
+These two functions implement the stack functionality.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; push() - adds a new element at the top of the stack<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pop() - deletes the top most element of the stack<br>
+
+        </p>
+       
+      </div>
+      
+      <div class="jumbotron">
+        <h1>Task 2</h1>
+        <p>
+        <h4>Convert the prefix expression into a rooted binary parse tree</h4><br>
+        <b>struct node* constructTree_from_prefix(char* prefix, int* index)</b><br><br>
+
+		Pseudo-Code:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Check if the current character is empty / null<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Generate the left subtree by recursively calling the constructTree_from_prefix function<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Create the node with the char value as the element from prefix expression<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Generate the right subtree by recursively calling the constructTree_from_prefix function<br><br>
+
+<b>int isOperator(char c)</b><br><br>
+
+This function returns 1 if the method parameter passed is an operator.<br><br>
+
+
+
+<b>struct node* new_Node(int v)</b><br><br>
+
+This method creates a new node and intializes the value v as the node character value.
+        </p>
+        
+      </div>
+      
+       <div class="jumbotron">
+        <h1>Task 3</h1>
+        <p>
+        <h4>Traverse the parse tree to output the infix expression back by in-order traversal of the parse tree</h4><br>
+   
+        <b>In-order Traversal</b><br><br>
+        Pseudo-Code:<br>
+   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Check if the current node is empty / null<br>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traverse the left subtree by recursively calling the in-order function.<br>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Display the data part of the root (or current node).<br>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Traverse the right subtree by recursively calling the in-order function.<br><br>
+		<b>void inorder(struct node *t)</b><br><br>
+
+		This function is the implementation of the above pseudo-code.<br>
+		This function takes a reference to the root node of the bianry parse tree and then proceeds to traverse in-order, displaying node->character at each recursive call.<br><br>
+
+		<b>isAtom(char ch)</b><br><br>
+
+		This function checks if the character passed as argument belongs to the allowed notation of the atom elements which is : <b>  'a' <= ch <= 'z'</b><br><br>
+
+		<b>Use of parentheses</b><br><br>
+
+		The readability of the final infix generated by in-order traversal has been greatly improved by using parentheses at right places. The <b>'void inorder()'</b> method takes care of use of the parentheses. To further improve the infix expression, parentheses enclosing individual atom elements has been removed, thereby reducing clumsiness.
+
+        </p>
+      </div>
+            
+      <div class="jumbotron">
+        <h1>Task 4</h1>
+        <p>
+        <h4>Compute the height of the parse tree</h4><br>
+        <b>int maxDepth(struct node* root)</b><br><br>
+
+		This function takes a reference to the root node of the tree as input argument and then proceeds to traverse the tree.<br>
+		In each execution, two recursive calls are made to calculate the depth of the right and the left subtrees. The optimal solution to this problem is obtained by returning the greater of the heights obtained among the right and left subtree.<br>
+		The recursion is broken when a <b>"NULL"</b> reference is encountered.
+        </p>
+       
+      </div>
+      
+      <div class="jumbotron">
+        <h1>Task 5</h1>
+        <p>
+        <h4>Evaluate the truth value of a propositional logic formula, given the truth values of each propositional atom by traversing the tree in a bottom up fashion</h4><br>
+        This task has been divided into three subtasks:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Get the input for each atom element<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Assign these values to each of the atom element<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Evaluate the parse tree in a bottom-up fashion with these values<br><br>
+
+
+<b>void input_atom_value()</b><br><br>
+
+This function takes input from the console which is to be assigned to the individual atom elements. All the input format instructions can be seen at runtime also.<br><br>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Please input the number of atom elements :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Please input in the following format<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                        atom=value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                example :: a=0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                           b=1<br>
+       -------Atom elements have a default value of zero---------**<br><br>
+
+
+
+<b>void assign_values(struct node *root)</b><br><br>
+
+This function takes a reference to the root node of the tree as input argument, traverses the tree till it reaches an atom element where it assigns the input value to that particular element.<br>
+In each execution, it is checked if the character value of the node is an atom element else two recursive calls are made.The recursion is broken when a <b>"NULL"</b> reference is encountered.<br>
+Since a node with <b>'~'</b> operator does not have a left subtree, it has been checked before making the recursive calls.<br><br>
+
+<i> uncomment this line in the code to see individual atom element's value<br>
+//printf("%c %d\n", (root->character),atom[(int)((root->character)-97)] );</i><br><br>
+
+<b>int evaluate(struct node* root)</b><br><br>
+
+After all the values have been assigned to the elements, evaluation is done in a bottom-up fashion. Each node has been given a default value of -1 initially, which denotes if a node has been already visited or not. If the node is not visited then the value of that node is changed according to the operator and return values of the right and left child node.
+        </p>
+        
+      </div>
+		
+
+    </div> <!-- /container -->
+
+
+  </body>
+</html>
